@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { property } from '../data/lands';
+import { getApiUrl } from '../lib/api';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -55,7 +56,7 @@ export default function Contact() {
     setSending(true);
 
     try {
-      const response = await fetch('/api/send-email', {
+      const response = await fetch(getApiUrl('/api/send-email'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

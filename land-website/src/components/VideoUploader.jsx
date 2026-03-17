@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getApiUrl } from '../lib/api';
 
 export default function VideoUploader() {
   const [uploading, setUploading] = useState(false);
@@ -7,7 +8,7 @@ export default function VideoUploader() {
   const [cloudConfig, setCloudConfig] = useState(null);
 
   useEffect(() => {
-    fetch('/api/cloudinary-signature')
+    fetch(getApiUrl('/api/cloudinary-signature'))
       .then(res => res.json())
       .then(data => setCloudConfig(data))
       .catch(err => console.error('Failed to get cloud config:', err));

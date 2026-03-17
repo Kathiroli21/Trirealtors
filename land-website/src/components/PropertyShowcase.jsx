@@ -27,6 +27,7 @@ const cloudinaryVideos = [
 export default function PropertyShowcase() {
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedImage, setSelectedImage] = useState(0);
+  const [selectedVideo, setSelectedVideo] = useState(0);
   const [showVideo, setShowVideo] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
@@ -173,26 +174,59 @@ export default function PropertyShowcase() {
           </button>
         </div>
       </div>
-
       <div className="media-section animate-on-scroll animate-fade-in-up">
         <h2 className="animate-fade-in-up">Property Media</h2>
         <div className="media-grid full-width">
-          <div className="video-grid">
-            {cloudinaryVideos.map((video, index) => (
-              <div 
-                key={index} 
-                className="video-card animate-scale-in" 
-                style={{ animationDelay: `${index * 0.15}s` }}
-                onClick={() => openVideo(video, index)}
+          <div className="video-gallery">
+            <div className="main-video">
+              <video
+                src={cloudinaryVideos[selectedVideo].url}
+                muted
+                playsInline
+                preload="metadata"
+                className="video-preview-media"
+                onLoadedMetadata={(e) => {
+                  if (e.currentTarget.duration) {
+                    e.currentTarget.currentTime = 0.1;
+                  }
+                }}
+              />
+              <button
+                type="button"
+                className="video-preview"
+                onClick={() => openVideo(cloudinaryVideos[selectedVideo], selectedVideo)}
+                aria-label={`Play ${cloudinaryVideos[selectedVideo].title}`}
               >
-                <video src={video.url} className="video-thumbnail" muted preload="metadata" />
-                <img src={video.thumbnail} alt={video.title} />
                 <div className="play-button">
-                  <span>▶</span>
+                  <span>&#9654;</span>
                 </div>
-                <div className="video-title">{video.title}</div>
-              </div>
-            ))}
+              </button>
+            </div>
+            <div className="video-thumbnail-strip">
+              {cloudinaryVideos.map((video, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  className={`video-thumbnail ${selectedVideo === index ? 'active' : ''}`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                  onClick={() => setSelectedVideo(index)}
+                  aria-label={`Preview ${video.title}`}
+                >
+                  <video
+                    src={video.url}
+                    muted
+                    playsInline
+                    preload="metadata"
+                    onLoadedMetadata={(e) => {
+                      if (e.currentTarget.duration) {
+                        e.currentTarget.currentTime = 0.1;
+                      }
+                    }}
+                  />
+                  <span className="video-thumbnail-play">&#9654;</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
