@@ -63,6 +63,7 @@ export default function Contact() {
         },
         body: JSON.stringify(formData),
       });
+      console.log('Response:', response);
 
       if (response.ok) {
         setSubmitted(true);
