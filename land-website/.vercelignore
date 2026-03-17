@@ -1,0 +1,4 @@
+# Exclude large media files from deployment
+# These should be hosted on a CDN like Cloudinary
+src/assets/videos/
+src/assets/images/vlcsnap-*
