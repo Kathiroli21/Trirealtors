@@ -21,24 +21,7 @@ cloudinary.config({
 const app = express();
 const resend = new Resend(RESEND_API_KEY);
 
-const allowedOrigins = (CORS_ORIGIN || '')
-  .split(',')
-  .map((s) => s.trim())
-  .filter(Boolean);
-
-const corsOptions = allowedOrigins.length
-  ? {
-      origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-          callback(null, true);
-        } else {
-          callback(new Error('Not allowed by CORS'));
-        }
-      }
-    }
-  : undefined;
-
-app.use(cors(corsOptions));
+app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '500mb' }));
 app.use(express.urlencoded({ extended: true, limit: '500mb' }));
 
