@@ -70,9 +70,8 @@ app.post('/api/send-email', async (req, res) => {
 
   try {
     const data = await resend.emails.send({
-      from: 'Trirealtors <onboarding@resend.dev>',
-      to: ['Trirealtors@gmail.com'],
-      reply_to: email,
+      from: 'onboarding@resend.dev',
+      to: 'trirealtors@gmail.com',
       subject: `New Inquiry: ${name} - ${preferredLand || 'Beach Land'}`,
       html: `
         <h2>New Property Inquiry</h2>
@@ -91,6 +90,7 @@ app.post('/api/send-email', async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
