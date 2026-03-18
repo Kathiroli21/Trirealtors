@@ -124,7 +124,7 @@ export default function Contact() {
               <span className="info-icon">📞</span>
               <div>
                 <h4>Call Us</h4>
-                <p><a href="tel:+919999999999">+91 99999 99999</a></p>
+                <p><a href="tel:+91 7598197733">+91 7598197733</a></p>
               </div>
             </div>
             <div className="map-container">
